@@ -5,6 +5,9 @@
  */
 package main;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author flavio
@@ -13,7 +16,15 @@ public class MinhaClasseRunnable extends Thread{
     private String nomeArquivo;
     private int qtdArquivos;
     private int tempo;
+    private long tempoExecucao;
     private int prioridade;
+    
+    public MinhaClasseRunnable() {
+        this.nomeArquivo = "";
+        this.qtdArquivos = 0;
+        this.tempo = 0;
+        this.prioridade = 0;
+    }
 
     public MinhaClasseRunnable(String nomeArquivo, int qtdArquivos, int tempo, int prioridade) {
         this.nomeArquivo = nomeArquivo;
@@ -24,14 +35,28 @@ public class MinhaClasseRunnable extends Thread{
         //t.start();
     }
     
-    public void Run(){
-        for(int c = 0;c < 1000; c++){
-            System.out.println(c);
-        }
+    public void run(){        
+        System.out.println(""+this.getNomeArquivo()+"");
+        for(int x = 1; x <= 5; x++){
+            System.out.println("Arquivo " + x +" Imprimindo");
+            try {
+                this.sleep(tempo);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }                            
+    }
+    
+    public long getTempoExecucao() {
+        return this.tempoExecucao;
     }
 
+    public void setTempoExecucao(long  t) {
+        this.tempoExecucao = t;
+    }
+    
     public String getNomeArquivo() {
-        return nomeArquivo;
+        return this.nomeArquivo;
     }
 
     public void setNomeArquivo(String nomeArquivo) {
@@ -39,7 +64,7 @@ public class MinhaClasseRunnable extends Thread{
     }
 
     public int getQtdArquivos() {
-        return qtdArquivos;
+        return this.qtdArquivos;
     }
 
     public void setQtdArquivos(int qtdArquivos) {
@@ -47,7 +72,7 @@ public class MinhaClasseRunnable extends Thread{
     }
 
     public int getTempo() {
-        return tempo;
+        return this.tempo;
     }
 
     public void setTempo(int tempo) {
@@ -55,7 +80,7 @@ public class MinhaClasseRunnable extends Thread{
     }
 
     public int getPrioridade() {
-        return prioridade;
+        return this.prioridade;
     }
 
     public void setPrioridade(int prioridade) {
